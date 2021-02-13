@@ -48,7 +48,7 @@ namespace WebApplication1.Controllers
                 return this.Ok(new SvcOutput
                 {
                     Result = null,
-                    Message = $"Ошибка: В насройках указан отрицательный радиус: {this._options.Radius}",
+                    Message = $"Ошибка: В настройках указан отрицательный радиус: {this._options.Radius}",
                 });
             }
             if (this._options.ValuteCode?.Length > 0 != true)
@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
                 return this.Ok(new SvcOutput
                 {
                     Result = null,
-                    Message = $"Ошибка: В насройках не указан код валюты: {this._options.ValuteCode}",
+                    Message = $"Ошибка: В настройках не указан код валюты: {this._options.ValuteCode}",
                 });
             }
 
