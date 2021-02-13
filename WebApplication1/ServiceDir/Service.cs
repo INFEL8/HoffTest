@@ -50,7 +50,7 @@ namespace WebApplication1.ServiceDir
         /// <summary>
         /// Перечисление валют.
         /// </summary>
-        public async Task<object[]> EnumValutesAsync(String svcAsmx)
+        public async Task<Object[]> EnumValutesAsync(String svcAsmx)
         {
             using DailyInfoSoapClient soapClient = CreateDailyInfoSoapClient(svcAsmx);
 
