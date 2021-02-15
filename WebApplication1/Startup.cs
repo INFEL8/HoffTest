@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,7 +39,14 @@ namespace WebApplication1
             }
             else
             {
-                app.UseExceptionHandler("/error");
+                app.UseExceptionHandler(a => a.Run(async context =>
+                {
+                    await context.Response.WriteAsJsonAsync(new SvcOutput
+                    {
+                        Result = null,
+                        Message = "Произошла серверная ошибка. Программисту этого сервиса пора найти ошибку по логам.",
+                    });
+                }));
             }
 
             app.UseRouting();
