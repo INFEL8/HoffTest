@@ -11,12 +11,10 @@ namespace WebApplication1.ServiceDir
 {
     public class Service
     {
-        private static DailyInfoSoapClient CreateDailyInfoSoapClient(String svcAsmx)
+        private static DailyInfoSoapClient CreateDailyInfoSoapClient()
         {
             var soapClient = new DailyInfoSoapClient(
                 endpointConfiguration: DailyInfoSoapClient.EndpointConfiguration.DailyInfoSoap
-                //, "http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx"
-                , remoteAddress: svcAsmx
             );
             return soapClient;
         }
@@ -24,12 +22,19 @@ namespace WebApplication1.ServiceDir
         /// <summary>
         /// Курс.
         /// </summary>
-        public async Task<ValuteCursOnDate[]> GetCursOnDateAsync(DateTime date, String svcAsmx)
+        /// <remarks>
+        /// По идее тут могут выскочить ошибки, например преобразования пришедшего ответа или что ещё.
+        /// Но всё не предусмотришь.
+        /// На это есть обработчик, настроенный в Startup-е.
+        /// </remarks>
+        public async Task<ValuteCursOnDate[]> GetCursOnDateAsync(DateTime date)
         {
             // На всякий, вдруг с временем передали. А мне только дату хочется.
+            // Это не лишнее т.к. я не нашёл в документации,
+            // что можно передавать с временем и от него нет зависимости.
             date = date.Date;
 
-            using DailyInfoSoapClient soapClient = CreateDailyInfoSoapClient(svcAsmx);
+            using DailyInfoSoapClient soapClient = CreateDailyInfoSoapClient();
 
             ArrayOfXElement arrayOfXElement = await soapClient.GetCursOnDateAsync(date);
 
@@ -56,9 +61,9 @@ namespace WebApplication1.ServiceDir
         /// При использовании в try catch обернуть только не забыть надо.
         /// А то может и ответ не прийти и поле поменять формат. Ну вдруг.
         /// </remarks>
-        public async Task<Object[]> EnumValutesAsync(String svcAsmx)
+        public async Task<Object[]> EnumValutesAsync()
         {
-            using DailyInfoSoapClient soapClient = CreateDailyInfoSoapClient(svcAsmx);
+            using DailyInfoSoapClient soapClient = CreateDailyInfoSoapClient();
 
             // Seld — формат -boolean
             // False — перечень ежедневных валют

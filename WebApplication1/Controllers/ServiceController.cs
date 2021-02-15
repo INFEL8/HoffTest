@@ -99,12 +99,12 @@ namespace WebApplication1.Controllers
                 date = DateTime.Today.AddDays(-1);
             }
 
+            // Тут могут выскочить исключения т.к. всё не предусмотришь, да и сомнительно, что надо.
+            // Они обработаются обработчиком, настроенным в Startup-е.
+            // В окружении Development выдача ответа иная.
             ValuteCursOnDate[] resultArr = await this._service.GetCursOnDateAsync(
                 date: date
-                // Не придумал как ещё передать адрес АПИ.
-                // Но есть ConnectedService.json, созданный WCF-ом, где настраивается это дело.
-                , svcAsmx: this._options.CbRfAsmx ?? "http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx"
-                );
+            );
 
             if (resultArr?.Any() != true)
             {
