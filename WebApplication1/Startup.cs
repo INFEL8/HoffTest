@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+п»їusing Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +44,7 @@ namespace WebApplication1
                     await context.Response.WriteAsJsonAsync(new SvcOutput
                     {
                         Result = null,
-                        Message = "Произошла серверная ошибка. Программисту этого сервиса пора найти ошибку по логам.",
+                        Message = "РџСЂРѕРёР·РѕС€Р»Р° СЃРµСЂРІРµСЂРЅР°СЏ РѕС€РёР±РєР°. РџСЂРѕРіСЂР°РјРјРёСЃС‚Сѓ СЌС‚РѕРіРѕ СЃРµСЂРІРёСЃР° РїРѕСЂР° РЅР°Р№С‚Рё РѕС€РёР±РєСѓ РїРѕ Р»РѕРіР°Рј.",
                     });
                 }));
             }
