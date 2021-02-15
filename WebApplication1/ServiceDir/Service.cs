@@ -50,6 +50,12 @@ namespace WebApplication1.ServiceDir
         /// <summary>
         /// Перечисление валют.
         /// </summary>
+        /// <remarks>
+        /// Метод здесь не используется.
+        /// Создан просто чтобы получить список кодов валют.
+        /// При использовании в try catch обернуть только не забыть надо.
+        /// А то может и ответ не прийти и поле поменять формат. Ну вдруг.
+        /// </remarks>
         public async Task<Object[]> EnumValutesAsync(String svcAsmx)
         {
             using DailyInfoSoapClient soapClient = CreateDailyInfoSoapClient(svcAsmx);
@@ -79,9 +85,14 @@ namespace WebApplication1.ServiceDir
 
         private static T[] InterpretTables<T>(ArrayOfXElement arrayOfXElement, Func<DataRow, T> selector)
         {
+            if (arrayOfXElement is null)
+            {
+                return Array.Empty<T>();
+            }
+
             DataSet ds = ToDataSet(arrayOfXElement);
 
-            if (ds.Tables.Count == 0)
+            if (!(ds?.Tables.Count > 0))
             {
                 return Array.Empty<T>();
             }
